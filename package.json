@@ -28,5 +28,8 @@
     "tsc-watch": "^6.0.4",
     "typedoc": "^0.25.9",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.15"
   }
 }
