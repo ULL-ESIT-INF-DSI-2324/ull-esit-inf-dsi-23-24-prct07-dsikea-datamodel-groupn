@@ -1,7 +1,8 @@
 # PRÁCTICA 7 : Modelo de datos de un sistema de información que permite gestionar una tienda de muebles
 
+**Grupo N**
 *Nombre y apellidos: [Daniel Bensa Expósito Paz](https://github.com/Danixps?tab=repositories, "Enlace Github")*
-*Nombre y apellidos: [Manuel David Gómez Alonso](https://github.com/Danixps?tab=repositories, "Enlace Github")*
+*Nombre y apellidos: [Manuel David Gómez Alonso](https://github.com/ManuelDavidGomezAlonso?tab=repositories, "Enlace Github")*
 *Nombre y apellidos: [Alejandro Javier Díaz Pérez](https://github.com/Danixps?tab=repositories, "Enlace Github")*
 
 *Asignatura: Desarrollo de Sistemas Informáticos (DSI)*
@@ -12,3 +13,4 @@
 
 
 
+[Enunciado de la práctica 7](https://ull-esit-inf-dsi-2324.github.io/prct07-DSIkea-dataModel/)
