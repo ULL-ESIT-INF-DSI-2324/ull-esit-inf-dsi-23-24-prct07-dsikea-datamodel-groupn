@@ -1,13 +1,13 @@
-import { Dimension, furnitureInterface } from '../furniture';
+import { Dimension, furnitureInterface } from '../furniture.js';
 
 export class Tables implements furnitureInterface {
   constructor(
-    protected id: number,
-    protected name: string,
-    protected description: string,
-    protected material: string,
-    protected dimension: Dimension,
-    protected price: number,
+    public id: number,
+    public name: string,
+    public description: string,
+    public material: string,
+    public dimension: Dimension,
+    public price: number,
   ) {
     this.id = id;
     this.name = name;
