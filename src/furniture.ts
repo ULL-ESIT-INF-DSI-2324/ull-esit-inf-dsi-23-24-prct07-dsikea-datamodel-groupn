@@ -42,6 +42,10 @@ export class Furniture<T extends furnitureInterface>
   [Symbol.iterator](): IterableIterator<T> {
     return this.furnitureMap.values();
   }
+
+  furnitureAdd(furniture: T): void {
+    this.furnitureMap.set(furniture.id, furniture);
+  }
 }
 
 // export class Chair implements furnitureInterface {
@@ -62,11 +66,3 @@ const table = new Tables(2, "Table", "Table de madera", "Madera", { length: 1, w
 
 furniture.furnitureMap.set(table.id, table);
 
-
-console.log(furniture.furnitureMap);
-console.log("Iterating over furniture");
-//Nombre.
-//Descripción.
-//Material.
-//Dimensiones.
-//Precio.

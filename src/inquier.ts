@@ -1,13 +1,18 @@
 import inquirer from "inquirer";
 import low from "lowdb";
 import FileSync from "lowdb/adapters/FileSync.js";
+import { Furniture } from "./furniture.js";
+import { Closet } from "./furnitures/closet.js";
 
 // Adaptador para la base de datos JSON
 const adapter = new FileSync("db.json");
 const db = low(adapter);
+const clos = new Closet(1, "Closet", "Closet de madera", "Madera", { length: 1, width: 1, height: 1 }, 100);
+//ID único.
+// const furniture = new Furniture(new Map([[clos.id, clos]]));
 
 // Inicializar la base de datos con los esquemas
-db.defaults({ furniture: [], suppliers: [], clients: [] }).write();
+db.defaults({ furniture: Furniture, suppliers: [], clients: [] }).write();
 
 // Función para mostrar el menú principal
 async function mainMenu() {
@@ -36,6 +41,8 @@ async function mainMenu() {
     case "Salir":
         console.log("¡Hasta luego!");
         process.exit();
+        //acabar ejecución
+        process.kill(process.pid);
     break;
     }
 }
@@ -50,21 +57,27 @@ async function manageFurniture() {
     });
 
     const furnitureList = db.get("furniture").value();
-    switch (furnitureMenuAnswer.option) {
-        case "Listar Muebles":
-            console.log("Lista de Muebles:");
-            console.table(furnitureList);
-            break;
-        case "Añadir Mueble":
-            // Implementar lógica para añadir muebles
-            break;
-        case "Eliminar Mueble":
-            // Implementar lógica para eliminar muebles
-            break;
+        switch (furnitureMenuAnswer.option) {
+            case "Listar Muebles":
+                console.log("Lista de Muebles:");
+                console.table(furnitureList);
+                mainMenu();
+                break;
+            case "Añadir Mueble":
+                furnitureList.push(clos);
+                mainMenu();
+                break;
+            case "Eliminar Mueble":
+                // Implementar lógica para eliminar muebles
+                mainMenu();
+                break;
             case "Volver":
+                break;
+        }
     return;
-    }
 }
+    
+
 
 // Función para gestionar proveedores
 async function manageSuppliers() {
