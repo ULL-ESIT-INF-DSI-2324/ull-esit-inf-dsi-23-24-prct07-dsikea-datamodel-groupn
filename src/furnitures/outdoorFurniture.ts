@@ -1,6 +1,7 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
-export class Closet implements furnitureInterface {
+// Clase para Muebles de exterior para jardín y terraza
+export class outdoorFurniture implements furnitureInterface {
   constructor(
     public id: number,
     public name: string,
@@ -8,14 +9,8 @@ export class Closet implements furnitureInterface {
     public material: string,
     public dimension: Dimension,
     public price: number,
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.material = material;
-    this.dimension = dimension;
-    this.price = price;
-  }
+    public weatherproof: boolean,
+  ) {}
 
   getInfo(): string {
     return this.description;

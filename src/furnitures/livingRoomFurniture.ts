@@ -1,6 +1,6 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
-export class Closet implements furnitureInterface {
+export class livingRoomFurniture implements furnitureInterface {
   constructor(
     public id: number,
     public name: string,
@@ -8,14 +8,9 @@ export class Closet implements furnitureInterface {
     public material: string,
     public dimension: Dimension,
     public price: number,
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.material = material;
-    this.dimension = dimension;
-    this.price = price;
-  }
+    public hasArmchairs: boolean,
+    public hasCoffeeTable: boolean,
+  ) {}
 
   getInfo(): string {
     return this.description;

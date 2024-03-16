@@ -1,6 +1,5 @@
-import { furnitureInterface, Dimension } from "../furniture.js";
-
-export class Closet implements furnitureInterface {
+import { Dimension, furnitureInterface } from "../furniture.js";
+export class Chair implements furnitureInterface {
   constructor(
     public id: number,
     public name: string,

@@ -3,97 +3,166 @@ import low from "lowdb";
 import FileSync from "lowdb/adapters/FileSync.js";
 import { Furniture } from "./furniture.js";
 import { Closet } from "./furnitures/closet.js";
+import { Provider } from "./entities/provider.js";
+import { Client } from "./entities/client.js";
+import { Stock } from "./stock.js";
 
 // Adaptador para la base de datos JSON
 const adapter = new FileSync("db.json");
 const db = low(adapter);
-const clos = new Closet(1, "Closet", "Closet de madera", "Madera", { length: 1, width: 1, height: 1 }, 100);
+const clos = new Closet(
+  1,
+  "Closet",
+  "Closet de madera",
+  "Madera",
+  { length: 1, width: 1, height: 1 },
+  100,
+);
+
+const mueble = new Map<string, number>([
+  ["Closet", 10],
+  ["Mesa roja", 5],
+  ["Silla", 20],
+]);
+const stock = new Stock(mueble);
 //ID único.
 // const furniture = new Furniture(new Map([[clos.id, clos]]));
 
 // Inicializar la base de datos con los esquemas
-db.defaults({ furniture: Furniture, suppliers: [], clients: [] }).write();
+db.defaults({
+  furniture: Furniture,
+  providers: Provider,
+  clients: Client,
+  stockList: Stock,
+}).write();
 
-// Función para mostrar el menú principal
+// Función para mostrar el menú principal.
 async function mainMenu() {
-    const answer = await inquirer.prompt({
-        type: "list",
-        name: "option",
-        message: "Selecciona una opción:",
-        choices: [
-            "Gestionar Muebles",
-            "Gestionar Proveedores",
-            "Gestionar Clientes",
-            "Salir",
-        ],
-    });
+  const answer = await inquirer.prompt({
+    type: "list",
+    name: "option",
+    message: "Selecciona una opción:",
+    choices: [
+      "Gestionar Muebles",
+      "Gestionar Proveedores",
+      "Gestionar Clientes",
+      "Gestionar Stock",
+      "Salir",
+    ],
+  });
 
-    switch (answer.option) {
+  switch (answer.option) {
     case "Gestionar Muebles":
-        await manageFurniture();
-        break;
+      await manageFurniture();
+      break;
+    case "Gestionar Stock":
+      await manageStock();
+      break;
     case "Gestionar Proveedores":
-        await manageSuppliers();
-        break;
+      await manageProviders();
+      break;
     case "Gestionar Clientes":
-        await manageClients();
-        break;
+      await manageClients();
+      break;
     case "Salir":
-        console.log("¡Hasta luego!");
-        process.exit();
-        //acabar ejecución
-        process.kill(process.pid);
-    break;
-    }
+      console.log("¡Hasta luego!");
+      process.exit();
+      break;
+  }
+}
+
+async function manageStock() {
+  const stockMenuAnswer = await inquirer.prompt({
+    type: "list",
+    name: "option",
+    message: "Selecciona una opción:",
+    choices: [
+      "Listar Stock",
+      "Añadir Stock",
+      "Eliminar Stock",
+      "Registrar Venta",
+      "Salir",
+    ],
+  });
+  const stockLT = db.get("stockList").value();
+
+  switch (stockMenuAnswer.option) {
+    case "Listar Stock":
+      console.log("Lista de Stock:");
+
+      console.table(stockLT);
+      mainMenu();
+      break;
+    case "Añadir Stock":
+      const answer = await inquirer.prompt({
+        type: "number",
+        name: "quantity",
+        message: "Introduce la cantidad a añadir:",
+      });
+      console.log(`La cantidad introducida es: ${answer.quantity}`);
+      let cantidad = answer.quantity;
+      stockLT.push({ name: "Closet", quantity: cantidad });
+      console.table(stockLT);
+      mainMenu();
+      break;
+    case "Eliminar Stock":
+      // Implementar lógica para eliminar stock
+      mainMenu();
+      break;
+    case "Volver":
+      break;
+  }
+  return;
 }
 
 // Función para gestionar muebles
 async function manageFurniture() {
-    const furnitureMenuAnswer = await inquirer.prompt({
-        type: "list",
-        name: "option",
-        message: "Selecciona una opción:",
-        choices: ["Listar Muebles", "Añadir Mueble", "Eliminar Mueble", "Volver"],
-    });
+  const furnitureMenuAnswer = await inquirer.prompt({
+    type: "list",
+    name: "option",
+    message: "Selecciona una opción:",
+    choices: ["Listar Muebles", "Añadir Mueble", "Eliminar Mueble", "Volver"],
+  });
 
-    const furnitureList = db.get("furniture").value();
-        switch (furnitureMenuAnswer.option) {
-            case "Listar Muebles":
-                console.log("Lista de Muebles:");
-                console.table(furnitureList);
-                mainMenu();
-                break;
-            case "Añadir Mueble":
-                furnitureList.push(clos);
-                mainMenu();
-                break;
-            case "Eliminar Mueble":
-                // Implementar lógica para eliminar muebles
-                mainMenu();
-                break;
-            case "Volver":
-                break;
-        }
-    return;
+  const furnitureList = db.get("furniture").value();
+  switch (furnitureMenuAnswer.option) {
+    case "Listar Muebles":
+      console.log("Lista de Muebles:");
+      console.table(furnitureList);
+      mainMenu();
+      break;
+    case "Añadir Mueble":
+      furnitureList.push(clos);
+      mainMenu();
+      break;
+    case "Eliminar Mueble":
+      // Implementar lógica para eliminar muebles
+      mainMenu();
+      break;
+    case "Volver":
+      break;
+  }
+  return;
 }
-    
-
 
 // Función para gestionar proveedores
-async function manageSuppliers() {
- // Implementar lógica para gestionar proveedores
+async function manageProviders() {
+  // Implementar lógica para gestionar proveedores
 }
 
 // Función para gestionar clientes
 async function manageClients() {
- // Implementar lógica para gestionar clientes
+  // Implementar lógica para gestionar clientes
 }
 
 // Función principal para iniciar la aplicación
 async function startApp() {
-    console.log("Bienvenido a la aplicación de gestión de muebles, proveedores y clientes.");
-    mainMenu();
+  console.log(
+    "Bienvenido a la aplicación de gestión de muebles, proveedores y clientes.",
+  );
+  mainMenu();
 }
 
 // Iniciar la aplicación
+
 startApp();
