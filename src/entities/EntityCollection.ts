@@ -5,11 +5,11 @@ export interface EntityInterface {
   direction: string;
 }
 
-export interface EntityMap<T> {
+export interface EntityMap<T extends EntityInterface> {
   entityMap: Map<number, T>;
 }
 
-export abstract class EntityCollection<T extends EntityInterface>
+export class EntityCollection<T extends EntityInterface>
   implements EntityMap<T>, Iterable<T>
 {
   constructor(public entityMap: Map<number, T>) {}
@@ -43,5 +43,13 @@ export abstract class EntityCollection<T extends EntityInterface>
 
   [Symbol.iterator](): IterableIterator<T> {
     return this.entityMap.values();
+  }
+  
+  add(entity: T): void {
+    this.entityMap.set(entity.id, entity);
+  }
+
+  getAll(){
+    return Array.from(this.entityMap.values());
   }
 }

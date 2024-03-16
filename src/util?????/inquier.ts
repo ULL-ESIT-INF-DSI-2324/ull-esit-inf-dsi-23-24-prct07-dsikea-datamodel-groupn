@@ -1,11 +1,12 @@
 import inquirer from "inquirer";
 import low from "lowdb";
 import FileSync from "lowdb/adapters/FileSync.js";
-import { Furniture } from "./furniture.js";
-import { Closet } from "./furnitures/closet.js";
-import { Provider } from "./entities/provider.js";
-import { Client } from "./entities/client.js";
-import { Stock } from "./stock.js";
+import { Furniture, furnitureInterface } from "../furniture.js";
+import { Closet } from "../furnitures/closet.js";
+import { EntityCollection, EntityInterface, EntityMap } from "../entities/EntityCollection.js";
+import { Stock } from "../stock.js";
+// import { Provider } from "./provider.js";
+// import { Client } from "./client.js";
 
 // Adaptador para la base de datos JSON
 const adapter = new FileSync("db.json");
@@ -19,12 +20,16 @@ const clos = new Closet(
   100,
 );
 
-const mueble = new Map<string, number>([
-  ["Closet", 10],
-  ["Mesa roja", 5],
-  ["Silla", 20],
+const mueble = new Furniture(new Map([[clos.id, clos]]));
+
+const EntityMap = new Map<number, EntityInterface>([[1, { id: 1, name: "Juan", contact: 123456789, email: " Juan @gmail.com", direction: "Calle 123" }]]);
+const client = new EntityCollection(EntityMap);
+const provider = new Map<string, number>([
+  ["Juan", 10],
+  ["Pedro", 5],
+  ["Maria", 20],
 ]);
-const stock = new Stock(mueble);
+const stock = new Stock(mueble, client, provider);
 //ID único.
 // const furniture = new Furniture(new Map([[clos.id, clos]]));
 
