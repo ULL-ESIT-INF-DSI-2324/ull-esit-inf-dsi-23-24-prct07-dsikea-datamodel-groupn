@@ -1,32 +1,60 @@
+// import "mocha";
+// import { expect } from "chai";
+
 import "mocha";
+import { Stock } from "../src/stock.js";
 import { expect } from "chai";
-import { EntityCollection } from "../src/entities/EntityCollection";
+import { Transaction } from "../src/transaction.js";
+import { Furniture } from "../src/furniture.js";
+import { EntityCollection } from "../src/entities/EntityCollection.js";
 
-const entities = [
-  { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
-  { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
-];
+describe("getExpenseForProviderPurchases", () => {
+  it("should create a new transaction", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
 
-const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
-
-// Test suite for EntityCollection class
-describe("EntityCollection", () => {
-  // Test constructor
-  it("should create an instance of EntityCollection", () => {
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
     const collection = new EntityCollection(entityMap);
     expect(collection).to.be.an.instanceOf(EntityCollection);
   });
+});
 
-  // Test findByField method
+describe("getSalesHistoryForClient", () => {
   it("should find entities by a specific field and value", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
+
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
     const collection = new EntityCollection(entityMap);
     const results = collection.findByField("name", "Entity1");
     expect(results).to.have.lengthOf(1);
     expect(results[0]).to.deep.equal(entities[0]);
   });
 
+  it("should find entities by name", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
+
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
+    const collection = new EntityCollection(entityMap);
+    const results = collection.findByName("Entity2");
+    expect(results).to.have.lengthOf(1);
+    expect(results[0]).to.deep.equal(entities[1]);
+  });
   // Test findByName method
   it("should find entities by name", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
+
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
     const collection = new EntityCollection(entityMap);
     const results = collection.findByName("Entity2");
     expect(results).to.have.lengthOf(1);
@@ -35,6 +63,12 @@ describe("EntityCollection", () => {
 
   // Test findByContact method
   it("should find entities by contact", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
+
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
     const collection = new EntityCollection(entityMap);
     const results = collection.findByContact("Contact1");
     expect(results).to.have.lengthOf(1);
@@ -43,6 +77,12 @@ describe("EntityCollection", () => {
 
   // Test findByDirection method
   it("should find entities by direction", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
+
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
     const collection = new EntityCollection(entityMap);
     const results = collection.findByDirection("Direction2");
     expect(results).to.have.lengthOf(1);
@@ -51,6 +91,12 @@ describe("EntityCollection", () => {
 
   // Test add method
   it("should add an entity to the collection", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
+
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
     const collection = new EntityCollection(entityMap);
     const newEntity = {
       id: 3,
@@ -66,6 +112,12 @@ describe("EntityCollection", () => {
 
   // Test getAll method
   it("should get all entities from the collection", () => {
+    const entities = [
+      { id: 1, name: "Entity1", contact: "Contact1", direction: "Direction1" },
+      { id: 2, name: "Entity2", contact: "Contact2", direction: "Direction2" },
+    ];
+
+    const entityMap = new Map(entities.map((entity) => [entity.id, entity]));
     const collection = new EntityCollection(entityMap);
     const allEntities = collection.getAll();
     expect(allEntities).to.have.lengthOf(entities.length);
