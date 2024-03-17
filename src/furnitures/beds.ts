@@ -13,7 +13,16 @@ export class Bed implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    const headboardInfo = this.hasHeadboard ? "Con cabecero" : "Sin cabecero";
+    return (
+      `Cama: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Tamaño del colchón: ${this.mattressSize}\n` +
+      `${headboardInfo}`
+    );
   }
 
   getName(): string {

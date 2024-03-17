@@ -44,12 +44,12 @@ export class EntityCollection<T extends EntityInterface>
   [Symbol.iterator](): IterableIterator<T> {
     return this.entityMap.values();
   }
-  
+
   add(entity: T): void {
     this.entityMap.set(entity.id, entity);
   }
 
-  getAll(){
+  getAll() {
     return Array.from(this.entityMap.values());
   }
 }

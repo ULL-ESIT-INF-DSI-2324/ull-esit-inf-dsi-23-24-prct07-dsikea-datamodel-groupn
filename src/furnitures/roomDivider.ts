@@ -13,7 +13,13 @@ export class roomDivider implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: Largo: ${this.dimension.length}, Ancho: ${this.dimension.width}, Altura: ${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Estilo: ${this.style}`
+    );
   }
 
   getName(): string {

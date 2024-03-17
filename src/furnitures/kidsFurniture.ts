@@ -13,7 +13,14 @@ export class KidsFurniture implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Nombre: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}€\n` +
+      `Rango de edad: ${this.ageRange}`
+    );
   }
 
   getName(): string {

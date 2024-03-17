@@ -1,0 +1,23 @@
+{
+  "stock": {
+    "inventory": {},
+    "trans": [],
+    "clients": {
+      "entityMap": {}
+    },
+    "providers": {
+      "entityMap": {}
+    },
+    "furniture": {
+      "furnitureMap": {}
+    }
+  },
+  "inventory": {},
+  "trans": [],
+  "furniture": {
+    "furnitureMap": {}
+  },
+  "provider": {
+    "entityMap": {}
+  }
+}

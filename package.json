@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node dist/furniture.js\"",
-    "in": "tsc-watch --onSuccess \"node dist/inquier.js\"",
+    "in": "tsc-watch --onSuccess \"node dist/database.js\"",
     "test": "mocha ./tests/*.spec.ts",
     "coverage": "c8 npm test && c8 report --reporter=lcov",
     "doc": "typedoc --out docs src/**/*.ts; touch docs/.nojekyll"

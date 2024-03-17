@@ -12,7 +12,14 @@ export class auxiliaryCars implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Carro auxiliar: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Capacidad: ${this.capacity} kg`
+    );
   }
 
   getName(): string {

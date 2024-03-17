@@ -13,7 +13,15 @@ export class livingRoomFurniture implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Nombre: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}€\n` +
+      `¿Tiene sillones? ${this.hasArmchairs ? "Sí" : "No"}\n` +
+      `¿Tiene mesa de café? ${this.hasCoffeeTable ? "Sí" : "No"}`
+    );
   }
 
   getName(): string {

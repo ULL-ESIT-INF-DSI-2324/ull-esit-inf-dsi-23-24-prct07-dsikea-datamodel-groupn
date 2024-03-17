@@ -13,7 +13,14 @@ export class cafeFurniture implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Mueble para cafetería: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Forma de la mesa: ${this.tableShape}`
+    );
   }
 
   getName(): string {

@@ -9,11 +9,18 @@ export class Racks implements furnitureInterface {
     public dimension: Dimension,
     public price: number,
     public numberOfShelves: number,
-    public hasDrawers: boolean
+    public hasDrawers: boolean,
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: Largo: ${this.dimension.length}, Ancho: ${this.dimension.width}, Altura: ${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Número de estantes: ${this.numberOfShelves}\n` +
+      `Tiene cajones: ${this.hasDrawers ? "Sí" : "No"}`
+    );
   }
 
   getName(): string {

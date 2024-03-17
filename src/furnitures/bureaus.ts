@@ -13,7 +13,16 @@ export class Bureau implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    const mirrorInfo = this.hasMirror ? "Con espejo" : "Sin espejo";
+    return (
+      `Escritorio: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Número de cajones: ${this.numberOfDrawers}\n` +
+      `${mirrorInfo}`
+    );
   }
 
   getName(): string {

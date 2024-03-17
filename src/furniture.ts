@@ -12,6 +12,7 @@ export interface furnitureInterface {
   description: string;
   material: string;
   dimension: Dimension;
+  //catego
   price: number;
   getInfo():string;
   getName():string;
@@ -33,21 +34,25 @@ export class Furniture<T extends furnitureInterface>
     return this.furnitureMap.values();
   }
 
-  furnitureAdd(furniture: T): void {
-    this.furnitureMap.set(furniture.id, furniture);
+  furnitureAdd(id: number, furniture: T): void {
+    this.furnitureMap.set(id, furniture);
   }
+  
   getKey(id: number): furnitureInterface | undefined {
     for (const furniture of this.furnitureMap.values()) {
       if (furniture.id === id) {
         return furniture;
       } else {
-        throw new Error("Furniture not found");
+        return undefined;
       }
     }
   }
+  getId() :number {
+    return this.furnitureMap.values().next().value.id;
+  }
   getFurniture(id: number): furnitureInterface | undefined{ //
     if (this.furnitureMap.get(id) === undefined) {
-      throw new Error("Furniture not found");
+      return undefined;
     } else {
       return this.getKey(id); 
     }

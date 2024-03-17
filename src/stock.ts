@@ -1,154 +1,178 @@
-//import { Furniture, furnitureInterface } from './furniture.js';
-//import { Transaction } from './transaction.js';
-//import { Client } from './entities/client.js';
-//import { EntityInterface } from './entities/EntityCollection.js';
-// Clase Stock
-// export class Stock {
-//   constructor(public cantidadstock: Map<string, number>) {
-//     //asociar cantidad de muebles a cada mueble
-//   }
-//   // Métodos para gestionar el stock
-//   addfurniture(name: string, addcantidad: number) {
-//     //modficar cantidad de ese mueble por nombre
-//     const currentStock = this.cantidadstock.get(name);
-//     if (currentStock !== undefined) {
-//       this.cantidadstock.set(name, currentStock + addcantidad);
-//     } else {
-//       this.cantidadstock.set(name, addcantidad);
-//     }
-//   }
-
-// deletefurniture(nombre: string) {
-//     this.muebles = this.muebles.filter(mueble => mueble.furnitureMap.keys().next().value !== nombre);
-// }
-
-// // Métodos para registrar transacciones
-// registerventa(cliente: Client<EntityInterface>, muebles: Furniture<T>, importe: number) {
-//     const fecha = new Date();
-//     this.transacciones.push(new Transaction(fecha, muebles, importe));
-// }
-
-// getStock(id: number) {
-//     return this.muebles[id];
-// }
-
-// registerbuy(proveedor: Proveedor, muebles: Furniture<T>, importe: number) {
-//     const fecha = new Date();
-//     this.transacciones.push(new Transaction(fecha, muebles, importe));
-// }
-
-// Otros métodos para obtener información del stock
-// (no se han implementado aquí por simplicidad)
-// }
-
-// A partir de aqui se viene lo bueno:
-
-// import fs from "fs";
-import low from "lowdb";
-import FileSync from "lowdb/adapters/FileSync.js";
-import { Furniture, furnitureInterface } from "./furniture.js";
 import {
-  EntityCollection,
-  EntityInterface,
+  EntityInterface, EntityCollection
 } from "./entities/EntityCollection.js";
+import { Furniture, furnitureInterface } from "./furniture.js";
 import { Transaction } from "./transaction.js";
 
-//porque queires meter cliente???
-//solo hacee falta furniture creo yo
-
-const adapter = new FileSync("stock.json");
-const db = low(adapter);
-
 export class Stock {
-  private transactions: Transaction<furnitureInterface>[] = [];
-  constructor(
-    private furnitures: Furniture<furnitureInterface>,
-    private clients: EntityCollection<EntityInterface>,
-    private providers: EntityCollection<EntityInterface>,
-  ) {
-    db.defaults({
-      furnitures: { furnitures },
-      clients: { clients },
-      providers: { providers },
-    }).write();
+  public inventory: Map<number, number>; // Mapa para almacenar la cantidad de cada mueble
+  public catalogue: Furniture<furnitureInterface>;
+  public transactions: Transaction<furnitureInterface>[]; // Array para almacenar las transacciones
+  public clients: EntityCollection<EntityInterface>;
+  public providers: EntityCollection<EntityInterface>;
+
+  constructor() {
+    this.inventory = new Map<number, number>();
+    this.catalogue = new Furniture<furnitureInterface>(
+      new Map<number, furnitureInterface>(),
+    );
+    this.transactions = [];
+    this.clients = new EntityCollection<EntityInterface>(new Map<number, EntityInterface>());
+    this.providers = new EntityCollection<EntityInterface>(new Map<number, EntityInterface>());
   }
 
-  getStock() {
-    return db.get("stock").value();
+  // Método para agregar productos al catálogo e inventario
+  addProduct(product: furnitureInterface, quantity: number): void {
+    // Agregar el producto al catálogo
+    //if (this.catalogue.getKey(product.id) !== undefined) {
+      //const currentQuantity = this.inventory.get(product.id) || 0;
+      //this.inventory.set(product.id, currentQuantity + quantity);
+    //} else {
+      this.catalogue.furnitureAdd(product.id, product);
+      const currentQuantity = this.inventory.get(product.id) || 0;
+      this.inventory.set(product.id, currentQuantity + quantity);
+    //}
   }
 
-  addClient(newClient: EntityInterface) {
-    this.clients.add(newClient);
-  }
+  // Método para vender una cantidad de productos a un cliente
+  sellProduct(
+    client: EntityInterface,
+    products: Furniture<furnitureInterface>,
+  ): Transaction<furnitureInterface> | undefined {
+    let total: number = 0;
+    for (const product of products) {
+      // Por cada producto que se quiera vender, comprobar la existencia y restar la cantidad si es posible.
+      const currentQuantity = this.inventory.get(product.id) || 0;
+      if (currentQuantity < 1) {
+        console.log(
+          `No hay suficiente stock de las unidades de ${product.name}`,
+        );
+        return undefined;
+      }
 
-  sale(client: EntityInterface, saleDetails: [Furniture<furnitureInterface>, number]): Transaction<furnitureInterface> | null {
-    const [furnitureToSale, amount] = saleDetails;
-
-    // Verificar si el mueble está en stock y si hay suficientes existencias
-    if (!this.hasEnoughStock(furnitureToSale, amount)) {
-      console.log("No hay suficientes existencias para completar la venta.");
-      return null;
+      // Actualizar la cantidad en el inventario
+      this.inventory.set(product.id, currentQuantity - 1);
+      total += product.price;
     }
 
-    // Simular la venta restando las existencias
-    furnitureToSale.quantity -= amount;
-
-    // Registrar la transacción de venta
-    const transaction = new Transaction("Venta", new Date(), [furnitureToSale], furnitureToSale.price * amount);
-    this.transactions.push(transaction);
-
-    // Devolver la transacción al cliente
-    return transaction;
+    // Crear la transacción de venta
+    const saleTransaction = new Transaction(
+      client,
+      "Venta",
+      new Date(),
+      products,
+      total,
+    );
+    this.clients.entityMap.set(client.id, client);
+    this.transactions.push(saleTransaction);
+    return saleTransaction;
   }
 
-  addProvider(newProvider: EntityInterface) {
-    this.providers.add(newProvider);
+  // Método para registrar una compra a un proveedor
+  purchaseProduct(
+    provider: EntityInterface,
+    products: Furniture<furnitureInterface>,
+    totalPrice: number,
+  ): Transaction<furnitureInterface> {
+    for (const product of products) {
+      //Por cada producto que se quiera comprar, comprobar la id equivalente y sumar a la cantidad.
+      let currentQuantity = this.inventory.get(product.id) || 0;
+      this.inventory.set(product.id, ++currentQuantity);
+    }
+    const purchaseTransaction = new Transaction(
+      provider,
+      "Compra",
+      new Date(),
+      products,
+      totalPrice,
+    );
+
+    this.transactions.push(purchaseTransaction);
+    return purchaseTransaction;
   }
 
-  getClients() {
-    return this.clients.getAll();
+  // Métodos para obtener informes
+
+  // Obtener el stock disponible de un mueble específico
+  getStockForFurniture(furnitureId: number): number {
+    return this.inventory.get(furnitureId) || 0;
   }
-  getProviders() {
-    return this.providers.getAll();
+
+  // Obtener el stock disponible de una categoría de muebles
+  // getStockForCategory(category: string): number {
+  //   let totalStock = 0;
+  //   for (const [id, quantity] of this.inventory.entries()) {
+  //     const furniture = this.catalogue.getFurniture(id);
+  //     if (furniture && furniture.category === category) {
+  //       totalStock += quantity;
+  //     }
+  //   }
+  //   return totalStock;
+  // }
+
+  // Obtener el mueble más vendido. Porfa bssssssss
+  getMostSoldFurniture(): furnitureInterface | undefined {
+    let mostSoldFurniture: furnitureInterface | undefined = undefined;
+    let maxQuantitySold = 0;
+
+    for (const [id, quantity] of this.inventory.entries()) {
+      const furniture = this.catalogue.getFurniture(id);
+      if (furniture && quantity > maxQuantitySold) {
+        maxQuantitySold = quantity;
+        mostSoldFurniture = furniture;
+      }
+    }
+
+    return mostSoldFurniture;
+  }
+
+  // Obtener la facturación total por ventas a clientes en un periodo de tiempo
+  getRevenueForClientSales(startDate: Date, endDate: Date): number {
+    let totalRevenue = 0;
+    for (const transaction of this.transactions) {
+      if (
+        transaction.type === "Venta" &&
+        startDate <= transaction.date &&
+        transaction.date <= endDate
+      ) {
+        totalRevenue += transaction.total;
+      }
+    }
+    return totalRevenue;
+  }
+
+  // Obtener el gasto total por compras a proveedores en un periodo de tiempo
+  getExpenseForProviderPurchases(startDate: Date, endDate: Date): number {
+    let totalExpense = 0;
+    for (const transaction of this.transactions) {
+      if (
+        transaction.type === "Compra" &&
+        startDate <= transaction.date &&
+        transaction.date <= endDate
+      ) {
+        totalExpense += transaction.total;
+      }
+    }
+    return totalExpense;
+  }
+
+  // Obtener el histórico de ventas de un cliente específico
+  getSalesHistoryForClient(
+    clientId: number,
+  ): Transaction<furnitureInterface>[] {
+    return this.transactions.filter(
+      (transaction) =>
+        transaction.type === "Venta" && transaction.entity.id === clientId,
+    );
+  }
+
+  // Obtener el histórico de compras a un proveedor específico
+  getPurchasesHistoryForProvider(
+    providerId: number,
+  ): Transaction<furnitureInterface>[] {
+    return this.transactions.filter(
+      (transaction) =>
+        transaction.type === "Compra" && transaction.entity.id === providerId,
+    );
   }
 }
-
-module.exports = Stock;
-
-//buen copilot ale (ojala copilot)
-//mete
-//asi deberia ir bien
-
-// class Stock1 {
-//   public stockData: Map<string, number>;
-//   constructor() {
-//     this.stockData = new Map<string, number>();
-//     this.loadStockData();
-//   }
-
-//   loadStockData() {
-//     try {
-//       const data = fs.readFileSync("stock.json", "utf8");
-//       this.stockData = new Map<string, number>(JSON.parse(data));
-//     } catch (err) {
-//       this.stockData = new Map<string, number>();
-//     }
-//   }
-//
-//   saveStockData() {
-//     fs.writeFileSync("stock.json", JSON.stringify(Array.from(this.stockData.entries())));
-//   }
-
-//   addFurniture(name: string, quantity: number) {
-//     if (this.stockData.get(name)) {
-//       this.stockData.set(name, this.stockData.get(name)! + quantity);
-//     } else {
-//       this.stockData.set(name, quantity);
-//     }
-//     this.saveStockData();
-//   }
-
-//   getStock() {
-//     return this.stockData;
-//   }
-// }

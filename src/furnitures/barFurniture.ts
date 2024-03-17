@@ -13,7 +13,14 @@ export class barFurniture implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Mueble para bar: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Material del asiento: ${this.seatMaterial}`
+    );
   }
 
   getName(): string {

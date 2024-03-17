@@ -13,7 +13,15 @@ export class DiningRoomFurniture implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Nombre: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}€\n` +
+      `Número de asientos: ${this.numberOfSeats}\n` +
+      `Forma de la mesa: ${this.tableShape}\n`
+    );
   }
 
   getName(): string {

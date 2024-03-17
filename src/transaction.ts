@@ -2,7 +2,7 @@ import { EntityInterface } from "./entities/EntityCollection.js";
 import { Furniture, furnitureInterface } from "./furniture.js";
 
 // Definimos un tipo para representar los tipos de transacción
-type TransactionType = "Venta" | "Devolución Cliente" | "Compra" | "Devolución Proveedor";
+type TransactionType = "Venta" | "Compra";
 
 // Definimos una clase para representar una transacción
 export class Transaction<T extends furnitureInterface> {

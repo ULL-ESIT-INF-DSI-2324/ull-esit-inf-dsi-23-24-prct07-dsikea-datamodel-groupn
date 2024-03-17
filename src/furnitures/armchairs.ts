@@ -13,7 +13,15 @@ export class Armchair implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Silla: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `Capacidad de asientos: ${this.seatingCapacity}\n` +
+      `Reposabrazos: ${this.hasArmrests ? "Sí" : "No"}`
+    );
   }
 
   getName(): string {

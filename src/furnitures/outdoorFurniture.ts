@@ -1,6 +1,8 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
 // Clase para Muebles de exterior para jardín y terraza
+
+//que estas tocando??? los getinfo, poniendolos bien
 export class outdoorFurniture implements furnitureInterface {
   constructor(
     public id: number,
@@ -13,7 +15,13 @@ export class outdoorFurniture implements furnitureInterface {
   ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: Largo: ${this.dimension.length}, Ancho: ${this.dimension.width}, Altura: ${this.dimension.height}\n` +
+      `Precio: ${this.price}\n` +
+      `A prueba de mal tiempo: ${this.weatherproof ? "Sí" : "No"}`
+    );
   }
 
   getName(): string {

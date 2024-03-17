@@ -7,17 +7,16 @@ export class Chair implements furnitureInterface {
     public material: string,
     public dimension: Dimension,
     public price: number,
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.material = material;
-    this.dimension = dimension;
-    this.price = price;
-  }
+  ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Silla: ${this.name}\n` +
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: ${this.dimension.length}x${this.dimension.width}x${this.dimension.height}\n` +
+      `Precio: ${this.price}`
+    );
   }
 
   getName(): string {

@@ -8,17 +8,15 @@ export class Tables implements furnitureInterface {
     public material: string,
     public dimension: Dimension,
     public price: number,
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.material = material;
-    this.dimension = dimension;
-    this.price = price;
-  }
+  ) {}
 
   getInfo(): string {
-    return this.description;
+    return (
+      `Descripción: ${this.description}\n` +
+      `Material: ${this.material}\n` +
+      `Dimensiones: Largo: ${this.dimension.length}, Ancho: ${this.dimension.width}, Altura: ${this.dimension.height}\n` +
+      `Precio: ${this.price}`
+    );
   }
 
   getName(): string {
