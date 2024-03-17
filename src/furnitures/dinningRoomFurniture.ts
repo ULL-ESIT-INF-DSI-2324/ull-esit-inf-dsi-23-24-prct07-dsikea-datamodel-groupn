@@ -1,6 +1,21 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
+/**
+ * Clase para Muebles de Comedor.
+ * Implementa la interfaz furnitureInterface.
+ */
 export class DiningRoomFurniture implements furnitureInterface {
+  /**
+   * Constructor de la clase DiningRoomFurniture.
+   * @param id - Identificador único del mueble de comedor.
+   * @param name - Nombre del mueble de comedor.
+   * @param description - Descripción del mueble de comedor.
+   * @param material - Material del mueble de comedor.
+   * @param dimension - Dimensiones del mueble de comedor.
+   * @param price - Precio del mueble de comedor.
+   * @param numberOfSeats - Número de asientos del mueble de comedor.
+   * @param tableShape - Forma de la mesa del mueble de comedor.
+   */
   constructor(
     public id: number,
     public name: string,
@@ -12,6 +27,10 @@ export class DiningRoomFurniture implements furnitureInterface {
     public tableShape: string,
   ) {}
 
+  /**
+   * Obtiene la información detallada del mueble de comedor.
+   * @returns Una cadena con la información del mueble de comedor.
+   */
   getInfo(): string {
     return (
       `Nombre: ${this.name}\n` +
@@ -24,6 +43,10 @@ export class DiningRoomFurniture implements furnitureInterface {
     );
   }
 
+  /**
+   * Obtiene el nombre del mueble de comedor.
+   * @returns El nombre del mueble de comedor.
+   */
   getName(): string {
     return this.name;
   }

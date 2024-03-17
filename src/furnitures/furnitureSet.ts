@@ -1,7 +1,20 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
-// Clase para Conjuntos de muebles
-export class furnitureSet implements furnitureInterface {
+/**
+ * Clase para Conjuntos de Muebles.
+ * Implementa la interfaz furnitureInterface.
+ */
+export class FurnitureSet implements furnitureInterface {
+  /**
+   * Constructor de la clase FurnitureSet.
+   * @param id - Identificador único del conjunto de muebles.
+   * @param name - Nombre del conjunto de muebles.
+   * @param description - Descripción del conjunto de muebles.
+   * @param material - Material del conjunto de muebles.
+   * @param dimension - Dimensiones del conjunto de muebles.
+   * @param price - Precio del conjunto de muebles.
+   * @param numberOfPieces - Número de piezas del conjunto de muebles.
+   */
   constructor(
     public id: number,
     public name: string,
@@ -12,6 +25,10 @@ export class furnitureSet implements furnitureInterface {
     public numberOfPieces: number,
   ) {}
 
+  /**
+   * Obtiene la información detallada del conjunto de muebles.
+   * @returns Una cadena con la información del conjunto de muebles.
+   */
   getInfo(): string {
     return (
       `Nombre: ${this.name}\n` +
@@ -23,6 +40,10 @@ export class furnitureSet implements furnitureInterface {
     );
   }
 
+  /**
+   * Obtiene el nombre del conjunto de muebles.
+   * @returns El nombre del conjunto de muebles.
+   */
   getName(): string {
     return this.name;
   }

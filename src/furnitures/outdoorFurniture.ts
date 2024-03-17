@@ -1,9 +1,20 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
-// Clase para Muebles de exterior para jardín y terraza
-
-//que estas tocando??? los getinfo, poniendolos bien
-export class outdoorFurniture implements furnitureInterface {
+/**
+ * Clase para Muebles de Exterior para Jardín y Terraza.
+ * Implementa la interfaz furnitureInterface.
+ */
+export class OutdoorFurniture implements furnitureInterface {
+  /**
+   * Constructor de la clase OutdoorFurniture.
+   * @param id - Identificador único del mueble de exterior.
+   * @param name - Nombre del mueble de exterior.
+   * @param description - Descripción del mueble de exterior.
+   * @param material - Material del mueble de exterior.
+   * @param dimension - Dimensiones del mueble de exterior.
+   * @param price - Precio del mueble de exterior.
+   * @param weatherproof - Indica si el mueble de exterior es resistente a las inclemencias del tiempo.
+   */
   constructor(
     public id: number,
     public name: string,
@@ -14,6 +25,10 @@ export class outdoorFurniture implements furnitureInterface {
     public weatherproof: boolean,
   ) {}
 
+  /**
+   * Obtiene la información detallada del mueble de exterior.
+   * @returns Una cadena con la información del mueble de exterior.
+   */
   getInfo(): string {
     return (
       `Descripción: ${this.description}\n` +
@@ -24,6 +39,10 @@ export class outdoorFurniture implements furnitureInterface {
     );
   }
 
+  /**
+   * Obtiene el nombre del mueble de exterior.
+   * @returns El nombre del mueble de exterior.
+   */
   getName(): string {
     return this.name;
   }

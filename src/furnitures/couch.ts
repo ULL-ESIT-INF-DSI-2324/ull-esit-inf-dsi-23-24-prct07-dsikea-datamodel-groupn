@@ -1,6 +1,21 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
+/**
+ * Clase para Sofás.
+ * Implementa la interfaz furnitureInterface.
+ */
 export class Couch implements furnitureInterface {
+  /**
+   * Constructor de la clase Couch.
+   * @param id - Identificador único del sofá.
+   * @param name - Nombre del sofá.
+   * @param description - Descripción del sofá.
+   * @param material - Material del sofá.
+   * @param dimension - Dimensiones del sofá.
+   * @param price - Precio del sofá.
+   * @param seatingCapacity - Capacidad de asientos del sofá.
+   * @param hasRecliners - Indica si el sofá tiene reclinatorios o no.
+   */
   constructor(
     public id: number,
     public name: string,
@@ -12,6 +27,10 @@ export class Couch implements furnitureInterface {
     public hasRecliners: boolean,
   ) {}
 
+  /**
+   * Obtiene la información detallada del sofá.
+   * @returns Una cadena con la información del sofá.
+   */
   getInfo(): string {
     let info = `Nombre: ${this.name}\n`;
     info += `Descripción: ${this.description}\n`;
@@ -23,6 +42,10 @@ export class Couch implements furnitureInterface {
     return info;
   }
 
+  /**
+   * Obtiene el nombre del sofá.
+   * @returns El nombre del sofá.
+   */
   getName(): string {
     return this.name;
   }

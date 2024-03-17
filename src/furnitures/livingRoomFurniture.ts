@@ -1,6 +1,21 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
-export class livingRoomFurniture implements furnitureInterface {
+/**
+ * Clase para Muebles de Sala de Estar.
+ * Implementa la interfaz furnitureInterface.
+ */
+export class LivingRoomFurniture implements furnitureInterface {
+  /**
+   * Constructor de la clase LivingRoomFurniture.
+   * @param id - Identificador único del mueble de sala de estar.
+   * @param name - Nombre del mueble de sala de estar.
+   * @param description - Descripción del mueble de sala de estar.
+   * @param material - Material del mueble de sala de estar.
+   * @param dimension - Dimensiones del mueble de sala de estar.
+   * @param price - Precio del mueble de sala de estar.
+   * @param hasArmchairs - Indica si el mueble de sala de estar tiene sillones o no.
+   * @param hasCoffeeTable - Indica si el mueble de sala de estar tiene mesa de café o no.
+   */
   constructor(
     public id: number,
     public name: string,
@@ -12,6 +27,10 @@ export class livingRoomFurniture implements furnitureInterface {
     public hasCoffeeTable: boolean,
   ) {}
 
+  /**
+   * Obtiene la información detallada del mueble de sala de estar.
+   * @returns Una cadena con la información del mueble de sala de estar.
+   */
   getInfo(): string {
     return (
       `Nombre: ${this.name}\n` +
@@ -24,6 +43,10 @@ export class livingRoomFurniture implements furnitureInterface {
     );
   }
 
+  /**
+   * Obtiene el nombre del mueble de sala de estar.
+   * @returns El nombre del mueble de sala de estar.
+   */
   getName(): string {
     return this.name;
   }

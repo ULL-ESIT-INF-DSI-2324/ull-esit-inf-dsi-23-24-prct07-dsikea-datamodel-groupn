@@ -1,6 +1,21 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
+/**
+ * Clase para Muebles de Bebé.
+ * Implementa la interfaz furnitureInterface.
+ */
 export class BabyFurniture implements furnitureInterface {
+  /**
+   * Constructor de la clase BabyFurniture.
+   * @param id - Identificador único del mueble de bebé.
+   * @param name - Nombre del mueble de bebé.
+   * @param description - Descripción del mueble de bebé.
+   * @param material - Material del mueble de bebé.
+   * @param dimension - Dimensiones del mueble de bebé.
+   * @param price - Precio del mueble de bebé.
+   * @param ageRange - Rango de edad recomendado para el mueble de bebé.
+   * @param hasChangingTable - Indica si el mueble de bebé tiene mesa de cambio.
+   */
   constructor(
     public id: number,
     public name: string,
@@ -12,6 +27,10 @@ export class BabyFurniture implements furnitureInterface {
     public hasChangingTable: boolean,
   ) {}
 
+  /**
+   * Obtiene la información detallada del mueble de bebé.
+   * @returns Una cadena con la información del mueble de bebé.
+   */
   getInfo(): string {
     return (
       `Descripción: ${this.description}\n` +
@@ -23,6 +42,10 @@ export class BabyFurniture implements furnitureInterface {
     );
   }
 
+  /**
+   * Obtiene el nombre del mueble de bebé.
+   * @returns El nombre del mueble de bebé.
+   */
   getName(): string {
     return this.name;
   }

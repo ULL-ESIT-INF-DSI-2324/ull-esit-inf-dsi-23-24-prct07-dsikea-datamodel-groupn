@@ -1,6 +1,21 @@
 import { furnitureInterface, Dimension } from "../furniture.js";
 
+/**
+ * Clase que representa un Escritorio.
+ * Implementa la interfaz furnitureInterface.
+ */
 export class Bureau implements furnitureInterface {
+  /**
+   * Constructor de la clase Bureau.
+   * @param id - Identificador único del escritorio.
+   * @param name - Nombre del escritorio.
+   * @param description - Descripción del escritorio.
+   * @param material - Material del escritorio.
+   * @param dimension - Dimensiones del escritorio.
+   * @param price - Precio del escritorio.
+   * @param numberOfDrawers - Número de cajones del escritorio.
+   * @param hasMirror - Indica si el escritorio tiene espejo o no.
+   */
   constructor(
     public id: number,
     public name: string,
@@ -12,6 +27,10 @@ export class Bureau implements furnitureInterface {
     public hasMirror: boolean,
   ) {}
 
+  /**
+   * Obtiene la información detallada del escritorio.
+   * @returns Una cadena con la información del escritorio.
+   */
   getInfo(): string {
     const mirrorInfo = this.hasMirror ? "Con espejo" : "Sin espejo";
     return (
@@ -25,6 +44,10 @@ export class Bureau implements furnitureInterface {
     );
   }
 
+  /**
+   * Obtiene el nombre del escritorio.
+   * @returns El nombre del escritorio.
+   */
   getName(): string {
     return this.name;
   }

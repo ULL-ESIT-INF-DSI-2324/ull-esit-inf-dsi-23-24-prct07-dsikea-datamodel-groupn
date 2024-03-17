@@ -1,23 +1,153 @@
 {
-  "stock": {
-    "inventory": {},
-    "trans": [],
-    "clients": {
-      "entityMap": {}
-    },
-    "providers": {
-      "entityMap": {}
-    },
-    "furniture": {
-      "furnitureMap": {}
-    }
-  },
   "inventory": {},
-  "trans": [],
-  "furniture": {
+  "trans": [
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu0101"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:00:42.158Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "lays"
+        }
+      },
+      "total": {
+        "totalPrice": "10"
+      }
+    },
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu0101"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:04:39.413Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "lays"
+        }
+      },
+      "total": {
+        "totalPrice": "10"
+      }
+    },
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu0101"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:09:41.675Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "lays"
+        }
+      },
+      "total": {
+        "totalPrice": "10"
+      }
+    },
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu0101"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:11:43.394Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "lays"
+        }
+      },
+      "total": {
+        "totalPrice": "10"
+      }
+    },
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu0101"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:13:16.235Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "lays"
+        }
+      },
+      "total": {
+        "totalPrice": "10"
+      }
+    },
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu0101"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:14:42.200Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "lays"
+        }
+      },
+      "total": {
+        "totalPrice": "10"
+      }
+    },
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu1001"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:15:07.005Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "ruffles"
+        }
+      },
+      "total": {
+        "totalPrice": "5"
+      }
+    },
+    {
+      "entity": {
+        "providerName": "ale",
+        "providerEmail": "alu0101"
+      },
+      "type": "Compra",
+      "date": "2024-03-17T14:22:34.390Z",
+      "furnitures": {
+        "furnitureMap": {
+          "productName": "papas",
+          "productDescription": "lays"
+        }
+      },
+      "total": {
+        "totalPrice": "10"
+      }
+    }
+  ],
+  "clients": {
+    "entityMap": {}
+  },
+  "providers": {
+    "entityMap": {}
+  },
+  "catalogue": {
     "furnitureMap": {}
   },
-  "provider": {
-    "entityMap": {}
+  "furniture": {
+    "furnitureMap": {}
   }
 }
