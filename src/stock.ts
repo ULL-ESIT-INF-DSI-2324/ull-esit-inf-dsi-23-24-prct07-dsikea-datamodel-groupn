@@ -57,15 +57,9 @@ export class Stock {
    * @param quantity - Cantidad del mueble a agregar.
    */
   addProduct(product: furnitureInterface, quantity: number): void {
-    // Agregar el producto al catálogo
-    //if (this.catalogue.getKey(product.id) !== undefined) {
-    //const currentQuantity = this.inventory.get(product.id) || 0;
-    //this.inventory.set(product.id, currentQuantity + quantity);
-    //} else {
-    this.catalogue.furnitureAdd(product.id, product); // AQUI DEBERIA ESTAR EL ERROR!!!!!
+    this.catalogue.furnitureAdd(product.id, product);
     const currentQuantity = this.inventory.get(product.id) || 0;
     this.inventory.set(product.id, currentQuantity + quantity);
-    //}
   }
 
   /**
