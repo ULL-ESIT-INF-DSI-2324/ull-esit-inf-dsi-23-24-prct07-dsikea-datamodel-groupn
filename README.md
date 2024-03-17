@@ -31,15 +31,15 @@
 5. [Anexos](#anexos)
 
 ## Resumen
-En esta práctica grupal, se nos ha pedido un programa en TypeScript destinado a gestionar una tienda de muebles llamada DSIkea. El código desarrollado se encuentra alojado en este mismo repositorio de Github. 
+En esta práctica grupal, se nos ha pedido un programa en **TypeScript** destinado a gestionar una tienda de muebles llamada *DSIkea*. El código desarrollado se encuentra alojado en este mismo repositorio de Github. 
 
 Algunas de las tareas previas requeridas fueron:
 
-- La aceptación de la asignación grupal en GitHub Classroom y organización en equipos.
-- El estudio de los módulos Inquirer.js y Lowdb para la gestión de una línea de comandos interactiva y persistencia de datos respectivamente a través del libro Essential TypeScript, por Adam Freeman.
-- Configuración de TypeDoc para documentar nuestro código.
+- La aceptación de la asignación grupal en **GitHub Classroom** y organización en equipos.
+- El estudio de los módulos **Inquirer.js** y **Lowdb** para la gestión de una línea de comandos interactiva y persistencia de datos respectivamente a través del libro **Essential TypeScript**, por Adam Freeman.
+- Configuración de **TypeDoc** para documentar nuestro código.
 - Desarrollo de pruebas unitarias para garantizar el correcto funcionamiento de nuestro código y su robustez ante entradas no válidas o inesperadas.
-- Configuración de las herramientas de cubrimiento de código (Coveralls), integración continua (GitHub Actions) y calidad del código (Sonar Cloud) para mejorar la calidad y fiabilidad de nuestro software.
+- Configuración de las herramientas de cubrimiento de código (*Coveralls*), integración continua (GitHub Actions) y calidad del código (Sonar Cloud) para mejorar la calidad y fiabilidad de nuestro software.
 
 Los requisitos del sistema que se nos exigían fueron:
 
@@ -52,17 +52,17 @@ Los requisitos del sistema que se nos exigían fueron:
 
 ## Apartados
 - ### Planteamiento del trabajo
-Se optó principalmente por crear una clase Furniture que contiene un mapa de muebles, utilizando una interfaz furnitureMap para definir su estructura. Esta clase proporciona métodos para agregar muebles al mapa, obtener un mueble por su identificador y obtener un iterador para recorrer todos los muebles en el mapa.
+Se optó principalmente por crear una clase *Furniture* que contiene un mapa de muebles, utilizando una interfaz *furnitureMap* para definir su estructura. Esta clase proporciona métodos para agregar muebles al mapa, obtener un mueble por su identificador y obtener un iterador para recorrer todos los muebles en el mapa.
 
-La interfaz furnitureInterface define la estructura de un mueble, especificando los campos necesarios como ID, nombre, descripción, material, dimensiones y precio. Además, incluye métodos para obtener la información detallada del mueble y su nombre. Está interfaz la deben implementar todos los tipos de muebles, así con ello nos aseguramos de que no haya mueble que no cuente con los atributos básicos y que luego pueda contar con más atributos.
+La interfaz *furnitureInterface* define la estructura de un mueble, especificando los campos necesarios como ID, nombre, descripción, material, dimensiones y precio. Además, incluye métodos para obtener la información detallada del mueble y su nombre. Está interfaz la deben implementar todos los tipos de muebles, así con ello nos aseguramos de que no haya mueble que no cuente con los atributos básicos y que luego pueda contar con más atributos.
 
-Para representar las dimensiones de un mueble, se utiliza un tipo Dimension que contiene las propiedades de longitud, ancho y altura.
+Para representar las dimensiones de un mueble, se utiliza un tipo *Dimension* que contiene las propiedades de longitud, ancho y altura.
 
 Luego pasamos a crear cada clase de los 20 muebles requeridos, y en los cuales no vamos a profundizar demasiado ya que su estructura es bastante sencilla y la podemos repasar después.
 
-Luego la siguiente decisión importante fue la de como manejar las dos estructuras de datos sobre proveedores y clientes, en principio pensamos en crear dos clases completamente diferentes, pero al ser dos clases que comparían mismos atributos y métodos lo que decidimos fue crear una sola clase de la cual se creen dos instancias (providers y clients). La clase EntityCollection representa una colección de entidades, donde cada entidad tiene un ID único, un nombre, información de contacto y una dirección. Esta clase proporciona métodos para realizar operaciones comunes en la colección de entidades, como encontrar entidades por diferentes campos (nombre, contacto, dirección), agregar nuevas entidades al mapa, obtener todas las entidades del mapa y proporcionar un iterador para recorrer todas las entidades en el mapa. Utiliza un mapa interno para almacenar las entidades, donde la clave es el ID único de la entidad.
+Luego la siguiente decisión importante fue la de como manejar las dos estructuras de datos sobre proveedores y clientes, en principio pensamos en crear dos clases completamente diferentes, pero al ser dos clases que comparían mismos atributos y métodos lo que decidimos fue crear una sola clase de la cual se creen dos instancias (*providers* y *clients*). La clase *EntityCollection* representa una colección de entidades, donde cada entidad tiene un ID único, un nombre, información de contacto y una dirección. Esta clase proporciona métodos para realizar operaciones comunes en la colección de entidades, como encontrar entidades por diferentes campos (nombre, contacto, dirección), agregar nuevas entidades al mapa, obtener todas las entidades del mapa y proporcionar un iterador para recorrer todas las entidades en el mapa. Utiliza un mapa interno para almacenar las entidades, donde la clave es el ID único de la entidad.
 
-Clase EntityCollection:
+Clase *EntityCollection*:
 ```ts
 /**
  * Interfaz que define la estructura de una entidad.
@@ -172,9 +172,9 @@ export class EntityCollection<T extends EntityInterface>
 }
 ```
 
-Respecto a la clase Stock definimos una clase que gestiona el inventario y las transacciones de una tienda de muebles, permitiendo agregar productos, registrar ventas y compras, y obtener información sobre el inventario y las transacciones.
+Respecto a la clase *Stock* definimos una clase que gestiona el inventario y las transacciones de una tienda de muebles, permitiendo agregar productos, registrar ventas y compras, y obtener información sobre el inventario y las transacciones.
 
-A su vez cada vez que se realiza la operación de compra o de venta se hace una facturación simple que se manifiesta en formato de la clase Transaction:
+A su vez cada vez que se realiza la operación de compra o de venta se hace una facturación simple que se manifiesta en formato de la clase *Transaction*:
 
 ```ts
 /**
@@ -223,19 +223,21 @@ Tanto el menú como la base de datos se describiran con mayor detalle posteriorm
 > **[Volver al índice](#índice)**
 
 - ### La herramienta LiveShare
-Este trabajo es el primero que realizamos de forma grupal en esta asignatura, así que necesitabamos una manera de poder trabajar todos al mismo tiempo, en eso se resume la importancia que tuvó para nosostros la herramienta LiveShare para nuestro programa. Ya en la asignatura se había contemplado el uso de LiveShare aunque esta es la primera vez que lo usamos de manera seria. Gracias al uso de esta herramienta junto con GitHub conseguimos poder implementar una forma de trabajar de la forma más cómoda posible sin retrasos. La única pega que podríamos tener del uso de esta herramienta es que solo una persona es la que puede compliar o ejecutar en terminal (ya que esto se hace por seguridad) e incluso tener acceso a diferentes directorios como lo es el directorio donde se ejecuta el programa /dist.
+
+Este trabajo es el primero que realizamos de forma grupal en esta asignatura, así que necesitabamos una manera de poder trabajar todos al mismo tiempo, en eso se resume la importancia que tuvó para nosostros la herramienta LiveShare para nuestro programa. Ya en la asignatura se había contemplado el uso de **LiveShare** aunque esta es la primera vez que lo usamos de manera seria. Gracias al uso de esta herramienta junto con GitHub conseguimos poder implementar una forma de trabajar de la forma más cómoda posible sin retrasos. La única pega que podríamos tener del uso de esta herramienta es que solo una persona es la que puede compliar o ejecutar en terminal (ya que esto se hace por seguridad) e incluso tener acceso a diferentes directorios como lo es el directorio donde se ejecuta el programa */dist*.
+
 > **[Volver al índice](#índice)**
 
 - ### Github Actions y Flujo de Trabajo Continuo
 Desde hace unas semana hemos ido repasando en clase como se puede mejorar 
-la calidad del desarrollo de software mediante la implementación de GitHub Actions y un flujo de trabajo continuo. En este contexto, se ha diseñado un flujo de trabajo en GitHub Actions para automatizar diversas tareas, como la ejecución de pruebas automatizadas, la generación de informes de cobertura de código y la ejecución de análisis estático del código utilizando herramientas como SonarCloud, que es una plataforma en la nube que proporciona análisis estático de código para mejorar la calidad y seguridad del software. Ofrece diversas herramientas de inspección de código que identifican problemas, bugs, vulnerabilidades y áreas de mejora en el código fuente. Este flujo de trabajo garantiza que el código desarrollado cumpla con los estándares de calidad definidos y que cualquier cambio realizado en el repositorio sea sometido a una serie de pruebas automáticas antes de ser fusionado en la rama principal.
+la calidad del desarrollo de software mediante la implementación de **GitHub Actions** y un **flujo de trabajo continuo**. En este contexto, se ha diseñado un flujo de trabajo en GitHub Actions para automatizar diversas tareas, como la ejecución de pruebas automatizadas, la generación de informes de cobertura de código y la ejecución de análisis estático del código utilizando herramientas como SonarCloud, que es una plataforma en la nube que proporciona análisis estático de código para mejorar la calidad y seguridad del software. Ofrece diversas herramientas de inspección de código que identifican problemas, bugs, vulnerabilidades y áreas de mejora en el código fuente. Este flujo de trabajo garantiza que el código desarrollado cumpla con los estándares de calidad definidos y que cualquier cambio realizado en el repositorio sea sometido a una serie de pruebas automáticas antes de ser fusionado en la rama principal.
 
-Además, se ha establecido una integración continua para garantizar que el código se construya correctamente en cada confirmación y que se despliegue en un entorno de prueba para su evaluación. Esto permite detectar y corregir rápidamente posibles problemas de integración, así como validar nuevas funcionalidades antes de su implementación en producción. Mediante el uso de GitHub Actions, se ha logrado automatizar gran parte del proceso de desarrollo y despliegue de software, lo que contribuye a una mayor eficiencia y confiabilidad en el desarrollo de la aplicación DSIkea.
+Además, se ha establecido una integración continua para garantizar que el código se construya correctamente en cada confirmación y que se despliegue en un entorno de prueba para su evaluación. Esto permite detectar y corregir rápidamente posibles problemas de integración, así como validar nuevas funcionalidades antes de su implementación en producción. Mediante el uso de **GitHub Actions**, se ha logrado automatizar gran parte del proceso de desarrollo y despliegue de software, lo que contribuye a una mayor eficiencia y confiabilidad en el desarrollo de la aplicación *DSIkea*.
 
 > **[Volver al índice](#índice)**
 
 - ### Clase Furniture
-Ya hemos hablado anteriormente de la clase Furniture aunque podemos profundizar aún más sobre esta clase. Furniture es en pocas palabras un catalogo que se construye con un id asociado a un mueble en la estructura de datos Map. Además la clase al basarse en un, Map al fin y al cabo, hemos decidido implementar la interfaz Iterable<T>, lo que permite recorrer los muebles contenidos en el mapa, estamos hablando de una clase que es iterable. Poco más que decir al respecto con Furniture:
+Ya hemos hablado anteriormente de la clase Furniture aunque podemos profundizar aún más sobre esta clase. Furniture es en pocas palabras un catalogo que se construye con un id asociado a un mueble en la estructura de datos Map. Además la clase al basarse en un, Map al fin y al cabo, hemos decidido implementar la interfaz *Iterable<T>*, lo que permite recorrer los muebles contenidos en el mapa, estamos hablando de una clase que es iterable. Poco más que decir al respecto con Furniture:
 - Implementa una manera de añadir muebles a la clase:
 
 ```ts
@@ -266,12 +268,12 @@ getFurniture(id: number): furnitureInterface | undefined {
 }
 ```
 
-Esta clase guarda muebles de diferentes tipos, todos los definidos en /furnitures y que implementan la interfaz de muebles, furnitureInterface.
+Esta clase guarda muebles de diferentes tipos, todos los definidos en /furnitures y que implementan la interfaz de muebles, *furnitureInterface*.
 
 > **[Volver al índice](#índice)**
 - ### Clase Stock
 
-La clase Stock se encarga de gestionar el inventario de muebles y las transacciones relacionadas en una tienda de muebles. Está compuesta por varios atributos, como inventory para almacenar la cantidad de cada mueble en el inventario, catalogue para la colección de muebles disponibles, transactions para almacenar las transacciones realizadas, clients para la colección de clientes y providers para la colección de proveedores.
+La clase *Stock* se encarga de gestionar el inventario de muebles y las transacciones relacionadas en una tienda de muebles. Está compuesta por varios atributos, como inventory para almacenar la cantidad de cada mueble en el inventario, catalogue para la colección de muebles disponibles, transactions para almacenar las transacciones realizadas, clients para la colección de clientes y providers para la colección de proveedores.
 
 Los métodos principales de esta clase son los siguientes que ya vienen comentados por lo cuál no creemos que haga falta explicarlos en profundidad:
 
@@ -469,11 +471,11 @@ getPurchasesHistoryForProvider(
 
 Estos métodos permiten realizar operaciones clave para el manejo eficiente del inventario y las transacciones en la tienda de muebles, así como obtener diferentes informes sobre las transacciones.
 
-Lo único que no hemos sido capaces de implementar ha sido la creación de un método capaz de buscar muebles según el tipo que se requiera, ya que para esto nuestra clase debe ser capaz de diferenciar entre distintas clases de muebles, en concreto 20, pensamos que esto se puede implementar usando "instance of", pero claro de esa manera para diferenciar 20 clases necesitaríamos 20 bloque de "if" lo cuál no nos parece la mejor forma de hacerlo.
+Lo único que no hemos sido capaces de implementar ha sido la creación de un método capaz de buscar muebles según el tipo que se requiera, ya que para esto nuestra clase debe ser capaz de diferenciar entre distintas clases de muebles, en concreto 20, pensamos que esto se puede implementar usando *instance of*, pero claro de esa manera para diferenciar 20 clases necesitaríamos 20 bloque de *if* lo cuál no nos parece la mejor forma de hacerlo.
 
 > **[Volver al índice](#índice)**
 - ### Inquirer
-Inquirer es una biblioteca de Node.js que facilita la creación de interfaces de línea de comandos interactivas. Permite a los desarrolladores crear preguntas, opciones y solicitudes de entrada de manera sencilla para interactuar con los usuarios en la terminal. Inquirer ofrece una amplia gama de tipos de preguntas y opciones de personalización, lo que la convierte en una herramienta popular para la creación de interfaces de usuario en aplicaciones de línea de comandos.
+**Inquirer** es una biblioteca de **Node.js** que facilita la creación de interfaces de línea de comandos interactivas. Permite a los desarrolladores crear preguntas, opciones y solicitudes de entrada de manera sencilla para interactuar con los usuarios en la terminal. **Inquirer** ofrece una amplia gama de tipos de preguntas y opciones de personalización, lo que la convierte en una herramienta popular para la creación de interfaces de usuario en aplicaciones de línea de comandos.
 
 Es bastante sencillo de utilizar, simplemente se deberán utilizar las funciones que implementa para ello.
 
@@ -576,6 +578,7 @@ __Hemos tenido varios problemas debido al desconocimiento previo de lowdb:__
 
 - __stock:__ Debido a no tener en cuenta la base de datos a la hora de su implementación, para el correcto funcionamiento de todo el código tendríamos que hacer cambios muy bruscos sobre esta clase, creemos que una de las soluciones podría ser pasarle a su constructor tres objetos que implementan 3 bases de datos, la de los muebles, la de los clientes y la de los proveedores.
 
+- __Typedock:__ Por algún motivo no logra captar el código que se necuentra dentro de la carpeta src y que no se encuentra en una subcarpeta de la misma. Se intentó creando cada *entrypoint* por separado, pero el resultado fue el mismo.
 
 > **[Volver al índice](#índice)**
 ## Referencias

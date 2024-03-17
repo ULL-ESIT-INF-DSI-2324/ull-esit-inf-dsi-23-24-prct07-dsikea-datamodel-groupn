@@ -1,14 +1,6 @@
 {
   "entryPoints": [
-    "./src/**/*.ts",
-    "./src/clientDatabase.ts",
-    "./src/furnitureDatabase.ts",
-    "./src/furniture.ts",
-    "./src/furnitureDatabase.ts",
-    "./src/menu.ts",
-    "./src/providerDatabase.ts",
-    "./src/stock.ts",
-    "./src/transaction.ts"
+    "./src/**/*.ts"
   ],
   "out": "./docs"
 }
