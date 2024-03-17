@@ -1,0 +1,10 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "name": "Juan",
+      "contact": "pollon",
+      "direction": "calle falsa 123"
+    }
+  ]
+}

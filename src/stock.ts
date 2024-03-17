@@ -2,6 +2,7 @@ import {
   EntityInterface,
   EntityCollection,
 } from "./entities/EntityCollection.js";
+//import { JsonFurniture } from "./furnitureDatabase.js"
 import { Furniture, furnitureInterface } from "./furniture.js";
 import { Transaction } from "./transaction.js";
 
@@ -37,6 +38,7 @@ export class Stock {
   /**
    * Constructor de la clase Stock.
    */
+  //public datFurn: JsonFurniture;
   constructor() {
     this.inventory = new Map<number, number>();
     this.catalogue = new Furniture<furnitureInterface>(
@@ -49,6 +51,7 @@ export class Stock {
     this.providers = new EntityCollection<EntityInterface>(
       new Map<number, EntityInterface>(),
     );
+    //this.datFurn = new JsonFurniture(this.catalogue.furnitureMap);
   }
 
   /**
@@ -125,7 +128,7 @@ export class Stock {
       // } //error aqui
       const furnitureMap = new Map();
       furnitureMap.set(1, { productName: 'papas', productDescription: 'lays' });
-      let products1 = new Furniture(furnitureMap);
+      const products1 = new Furniture(furnitureMap);
       
       for (const [key, value] of products1.furnitureMap.entries()) {
         let currentQuantity = this.inventory.get(key) || 0;

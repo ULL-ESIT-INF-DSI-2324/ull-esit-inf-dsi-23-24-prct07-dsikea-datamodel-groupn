@@ -1,13 +1,15 @@
 {
   "name": "p07-dsikea",
-  "version": "1.0.0",
+  "version": "1.7.10",
   "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node dist/furniture.js\"",
-    "in": "tsc-watch --onSuccess \"node dist/menu.js\"",
-    "test": "mocha ./tests/*.spec.ts",
+    "menu": "tsc-watch --onSuccess \"node dist/menu.js\"",
+    "cli-database": "tsc-watch --onSuccess \"node dist/clientDatabase\"",
+    "database": "tsc-watch --onSuccess \"node dist/furnitureDatabase\"",
+    "test": "mocha",
     "coverage": "c8 npm test && c8 report --reporter=lcov",
     "doc": "typedoc --out docs src/**/*.ts; touch docs/.nojekyll"
   },
@@ -15,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/chai": "^4.3.11",
+    "@types/chai": "^4.3.12",
     "@types/inquirer": "^9.0.7",
     "@types/lowdb": "^1.0.15",
     "@types/mocha": "^10.0.6",
@@ -23,7 +25,7 @@
     "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
-    "chai": "^4.3.7",
+    "chai": "^5.1.0",
     "coveralls": "^3.1.1",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",

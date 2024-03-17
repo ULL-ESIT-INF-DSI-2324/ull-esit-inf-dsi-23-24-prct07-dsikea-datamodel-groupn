@@ -228,7 +228,7 @@ Este trabajo es el primero que realizamos de forma grupal en esta asignatura, as
 
 - ### Github Actions y Flujo de Trabajo Continuo
 Desde hace unas semana hemos ido repasando en clase como se puede mejorar 
-la calidad del desarrollo de software mediante la implementación de GitHub Actions y un flujo de trabajo continuo. En este contexto, se ha diseñado un flujo de trabajo en GitHub Actions para automatizar diversas tareas, como la ejecución de pruebas automatizadas, la generación de informes de cobertura de código y la ejecución de análisis estático del código utilizando herramientas como SonarCloud. Este flujo de trabajo garantiza que el código desarrollado cumpla con los estándares de calidad definidos y que cualquier cambio realizado en el repositorio sea sometido a una serie de pruebas automáticas antes de ser fusionado en la rama principal.
+la calidad del desarrollo de software mediante la implementación de GitHub Actions y un flujo de trabajo continuo. En este contexto, se ha diseñado un flujo de trabajo en GitHub Actions para automatizar diversas tareas, como la ejecución de pruebas automatizadas, la generación de informes de cobertura de código y la ejecución de análisis estático del código utilizando herramientas como SonarCloud, que es una plataforma en la nube que proporciona análisis estático de código para mejorar la calidad y seguridad del software. Ofrece diversas herramientas de inspección de código que identifican problemas, bugs, vulnerabilidades y áreas de mejora en el código fuente. Este flujo de trabajo garantiza que el código desarrollado cumpla con los estándares de calidad definidos y que cualquier cambio realizado en el repositorio sea sometido a una serie de pruebas automáticas antes de ser fusionado en la rama principal.
 
 Además, se ha establecido una integración continua para garantizar que el código se construya correctamente en cada confirmación y que se despliegue en un entorno de prueba para su evaluación. Esto permite detectar y corregir rápidamente posibles problemas de integración, así como validar nuevas funcionalidades antes de su implementación en producción. Mediante el uso de GitHub Actions, se ha logrado automatizar gran parte del proceso de desarrollo y despliegue de software, lo que contribuye a una mayor eficiencia y confiabilidad en el desarrollo de la aplicación DSIkea.
 
@@ -473,17 +473,119 @@ Lo único que no hemos sido capaces de implementar ha sido la creación de un m�
 
 > **[Volver al índice](#índice)**
 - ### Inquirer
+Inquirer es una biblioteca de Node.js que facilita la creación de interfaces de línea de comandos interactivas. Permite a los desarrolladores crear preguntas, opciones y solicitudes de entrada de manera sencilla para interactuar con los usuarios en la terminal. Inquirer ofrece una amplia gama de tipos de preguntas y opciones de personalización, lo que la convierte en una herramienta popular para la creación de interfaces de usuario en aplicaciones de línea de comandos.
+
+Es bastante sencillo de utilizar, simplemente se deberán utilizar las funciones que implementa para ello.
+
+- _prompt()_: Sirve para preguntar al usuario.
+```typescript
+    const answer = await inquirer.prompt({
+        type: "list",
+        name: "option",
+        message: "Selecciona una opción:",
+        choices: [
+            "Gestionar Muebles",
+            "Gestionar Proveedores",
+            "Gestionar Clientes",
+            "Salir",
+        ],
+    });
+```
+_Ese **await** antes del **inquirer.prompt** nos dice hara que la función se ejecute después de que se cumpla una promesa, el **await** se utiliza en funciones asíncronas que se establecen con la palabra reservada **async**_
+
+```typescript
+    switch (answer.option) {
+    case "Gestionar Muebles":
+        await manageFurniture();
+        break;
+    case "Gestionar Proveedores":
+        await manageProviders();
+        break;
+    case "Gestionar Clientes":
+        await manageClients();
+        break;
+    case "Salir":
+        console.log("¡Hasta luego!");
+        process.exit();
+    break;
+    }
+```
+
+_De la manera anterior manejaremos el funcionamiento de según que elección del usuario._   
+
+Disponemos de más funciones pero no hemos visto necesaria ninguna más, alguna de ellas son las siguientes:
+
+- __registerPrompt():__ Permite registrar nuevos tipos de prompts personalizados para extender las capacidades de Inquirer.
+- __Separator():__ Se utiliza para agregar separadores entre las preguntas para una mejor organización visual en la interfaz de línea de comandos.
+- __createPromptModule():__ Permite crear un módulo personalizado de Inquirer con opciones preconfiguradas para reutilizar en diferentes partes de la aplicación.
+- __prompt.prompts:__ Un objeto que contiene los tipos de prompts disponibles, como input, confirm, list, etc. Este objeto se puede utilizar para acceder y personalizar los tipos de prompts predeterminados.
+- __prompt.override:__ Se utiliza para anular las opciones predeterminadas de un prompt específico, como el mensaje, las opciones de selección, etc.
+- __prompt.registerPrompt():__ Permite registrar nuevos tipos de prompts a nivel global para usarlos en toda la aplicación.
+- __prompt.ui:__ Un objeto que representa la interfaz de usuario de Inquirer. Se utiliza para iniciar y finalizar la interfaz, así como para manejar eventos y entradas del usuario.
 
 > **[Volver al índice](#índice)**
 - ### Lowdb
 
+lowdb es una biblioteca de base de datos escrita enteramente en JavaScript y que opera sobre archivos JSON. Es una solución liviana y simple para almacenar datos en aplicaciones __Node.js__ y del lado del cliente. Está diseñada para _aplicaciones pequeñas a medianas que no requieren una base de datos completa_, como SQLite o MongoDB.
+
+```typescript
+export class JsonStock extends Stock {
+  private database: lowdb.LowdbSync<SchemaType>;
+  private nextId: number = 0;
+  /**
+   * Constructor de la clase JsonStock.
+   * Inicializa la base de datos y carga los datos si existen.
+   */
+  constructor() {
+    super();
+    this.database = lowdb(new FileSync("Stock.json"));
+    if (this.database.has("inventory").value()) {
+
+      this.inventory = this.database.get("inventory").value();
+      this.transactions = this.database.get("trans").value();
+      this.clients = this.database.get("clients").value();
+      this.providers = this.database.get("providers").value();
+      this.catalogue = new Furniture(new Map());
+      //¡this.catalogue = this.database.get("furniture").value();
+      this.inventory = new Map(); // Asegúrate de que esto es correcto para tu caso
+      // this.catalogue = this.database.get("furniture").value();
+    } else {
+      const entrada: SchemaType = {
+        inventory: this.inventory,
+        trans: this.transactions,
+        clients: this.clients,
+        providers: this.providers,
+        furniture: this.catalogue,
+      };
+  
+      this.database.set("inventory", entrada.inventory)
+      .set("trans", entrada.trans)
+      .set("clients", entrada.clients)
+      .set("providers", entrada.providers)
+      .set("catalogue", entrada.furniture).write();
+    }
+  }
+```
+Lo que se hace es una clase que maneje la base de datos, en el constructor de esta __contemplamos la opción de que la base de datos contenga algo__, cogiendo los datos de esta y haciendo que nuestro objeto tenga los valores guardados en la misma, __o que esté vacía inicializando entonces la misma__, y creando el fichero JSON con su respectiva estructura.
+
 > **[Volver al índice](#índice)**
 ## Problemas
+__Hemos tenido varios problemas debido al desconocimiento previo de lowdb:__
+
+- __lowdb:__ Al intentar crear tan solo un json que almacene todos los datos, nos dan errores las funciones de otras clases a las que no extiende nuestra clase JsonStock. Por ejemplo cunado intentamos convocar el método addProduct de la clase stock, en el cual se utiliza __getKey() de la clase Furniture__ para saber si hay que añadir el mueble al listado o no, nos da un error ya que __getKey() no pertenece a JsonStock__, dandonos cuenta de que __para cada clase contenedora debemos crear un json.__
+
+- __stock:__ Debido a no tener en cuenta la base de datos a la hora de su implementación, para el correcto funcionamiento de todo el código tendríamos que hacer cambios muy bruscos sobre esta clase, creemos que una de las soluciones podría ser pasarle a su constructor tres objetos que implementan 3 bases de datos, la de los muebles, la de los clientes y la de los proveedores.
+
 
 > **[Volver al índice](#índice)**
 ## Referencias
 
+[Inquirer](#https://www.npmjs.com/package/inquirer)
+[Lowdb](#https://www.npmjs.com/package/lowdb)
+[SonarCloud](#https://github.com/marketplace/actions/sonarcloud-scan)
+
 > **[Volver al índice](#índice)**
 ## Anexos
+[Essential TypeScript](#https://learning-oreilly-com.accedys2.bbtk.ull.es/library/view/essential-typescript-from/9781484249796/html/481342_1_En_1_Chapter.xhtml)
 
 > **[Volver al índice](#índice)**

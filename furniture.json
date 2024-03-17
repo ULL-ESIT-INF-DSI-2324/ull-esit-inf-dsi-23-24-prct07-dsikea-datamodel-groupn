@@ -1,3 +1,16 @@
 {
-  "furniture": {}
+  "furniture": [
+    {
+      "id": 0,
+      "name": "Silla",
+      "description": "Silla de madera",
+      "material": "Madera",
+      "dimension": {
+        "width": 0.5,
+        "height": 1,
+        "length": 0.5
+      },
+      "price": 100
+    }
+  ]
 }

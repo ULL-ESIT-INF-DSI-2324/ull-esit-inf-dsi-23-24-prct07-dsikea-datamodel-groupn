@@ -1,7 +1,6 @@
 import lowdb from "lowdb";
 import FileSync from "lowdb/adapters/FileSync.js";
 import { Furniture, furnitureInterface } from "./furniture.js";
-import { Stock } from "./stock.js"
 
 /**
  * Tipo del esquema de la base de datos
@@ -24,38 +23,31 @@ export class JsonFurniture extends Furniture<furnitureInterface> {
   constructor(public furnitureMap: Map<number, furnitureInterface>) {
     super(furnitureMap);
     this.database = lowdb(new FileSync("furniture.json"));
-    if (this.database.has("furniture").value()) {
-      this.furnitureMap = this.database.get("furniture").value();
+    if (this.database.has("furniture") ) {
+      const data = this.database.get("furniture").value();
+      
+      if (data !== undefined) {
+        data.forEach(item => {
+        if (item !== null) {
+          this.furnitureMap.set(item.id, item);
+        }
+      });
+      }
     } else {
-      this.database.set("furniture", this.furnitureMap).write();
+      this.database.set("furniture", furnitureMap).write();
+      furnitureMap.forEach(item => this.furnitureMap.set(item.id,item));
     }
   }
 
   /**
+   * 
    * Actualiza la base de datos con los cambios en el stock.
    */
-  updateDatabase(): void {
-    this.database.set("furniture", this.furnitureMap).write();
+  furnitureAdd(id: number, furniture: furnitureInterface): void {
+    super.furnitureAdd(id, furniture);
+  }
+  storeFurniture(){
+    this.database.set("furniture", [...this.furnitureMap.values()]).write();
   }
 }
 
-// Uso:
-const stock = new Stock();
-const furns = new JsonFurniture(stock.catalogue.furnitureMap);
-const furniture: furnitureInterface = {
-  id: 1,
-  name: "Silla",
-  description: "Silla de madera",
-  material: "Madera",
-  dimension: { width: 0.5, height: 1, length: 0.5 },
-  price: 100,
-  getInfo: function () {
-    return `${this.name}: ${this.description}, made of ${this.material}, dimensions: ${this.dimension.width}x${this.dimension.height}x${this.dimension.length}, price: ${this.price}`;
-  },
-  getName: function () {
-    return this.name;
-  },
-};
-
-furns.furnitureAdd(0, furniture);
-furns.updateDatabase();
