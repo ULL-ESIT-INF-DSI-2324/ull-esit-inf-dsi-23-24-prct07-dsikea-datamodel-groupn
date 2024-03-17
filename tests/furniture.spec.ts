@@ -4,20 +4,20 @@ import { Furniture, furnitureInterface} from '../src/furniture';
 
 // pruebas sobre la clase funriture y sus funciones 
 describe('Furniture', () => {
+  const furniture = {
+    id: 1,
+    name: 'table', 
+    description: 'table',
+    material: 'wood',
+    dimension: '50x50x50',
+    price: 200
+  };
     it('should create a new furniture', () => {
-        const furniture = {
-          id: 1,
-          name: 'table', 
-          description: 'table',
-          material: 'wood',
-          dimension: '50x50x50',
-          price: 200
-        };
         expect(furniture).to.be.an.instanceOf(Furniture);
     });
     it('should return the furniture name', () => {
-        const furniture = new Furniture(new Map<number, interface>);
-        expect(furniture.getName()).to.equal('table');
+        const furnitures = new Furniture(new Map<number, furnitureInterface>);
+        expect(furniture.getKey()).to.equal('table');
     });
     it('should return the furniture price', () => {
         const furniture = new Furniture('table', 100, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50);
