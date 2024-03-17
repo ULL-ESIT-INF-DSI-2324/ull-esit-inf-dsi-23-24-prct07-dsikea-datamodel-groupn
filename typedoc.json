@@ -1,6 +1,8 @@
 {
     "entryPoints": [
-      "./src/*.ts"
+      "./src/*.ts",
+      "./src/entities/EntityCollection.ts",
+      "./src/furnitures/*.ts"
     ],
     "out": "./docs"
   }
